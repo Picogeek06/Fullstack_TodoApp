@@ -1,8 +1,14 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+var db = require("../models");
 
-router.get('/', function(req, res){
-    res.send("hello from todos routes");
-});
+router.route('/')
+    .get(helpers.getTodos)
+    .post(helpers.createTodos)
+
+router.route('/:todoId')
+    .get(helpers.getTodo)
+    .put(helpers.updateTodo)
+    .delete(helpers.deleteTodo)
 
 module.exports = router;
