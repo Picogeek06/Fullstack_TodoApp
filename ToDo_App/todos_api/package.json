@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Picogeek06/ToDo_App#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0"
   }
 }
