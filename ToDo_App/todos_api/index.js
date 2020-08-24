@@ -1,17 +1,17 @@
 var express = require("express"),
   app = express();
-bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 
 var todoRoutes = require("./routes/todos");
-const bodyParser = require("body-parser");
-//const bodyParser = require('body-parser');
+//const bodyParser = require("body-parser");
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/views'));
 
 app.get("/", function (req, res) {
-  //res.send("{data: 234567890678}")
-  res.send("Hello from ROOT Routes");
+  res.sendFile("index.html");
 });
 
 app.use("/api/todos", todoRoutes);
