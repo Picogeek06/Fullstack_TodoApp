@@ -8,7 +8,7 @@ app.get('/', function(req, res){
     res.send("Hello from ROOT Routes");
 });
 
-app.use('api/todos/', todoRoutes);
+app.use('/api/todos', todoRoutes);
 
 app.listen(3000, function(){
     console.log("APP IS RUNNING ON PORT 3000");
