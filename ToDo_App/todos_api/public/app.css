@@ -1,0 +1,13 @@
+body{
+    background-color: black;
+    filter: invert(100%) ;
+    filter: hue-rotate(180deg);
+}
+h1{
+    color: coral;
+}
+
+/* .dark{
+    filter: invert();
+    filter: hue-rotate();
+} */
