@@ -1,21 +1,42 @@
-//const { $where } = require("../models/todo");
-
-const bodyParser = require("body-parser");
-
 $(document).ready(function () {
   $.getJSON("/api/todos").then(addTodos);
+
+  $('#todoInput').keypress(function(event){
+    if(event.which == 13) {
+      createTodo();
+    }
+  });
 });
+
+
 
 var dark = document.getElementsByClassName("dark")
 
 function addTodos(todos) {
   //add todos to the page
   todos.forEach(function (todo) {
-    var newTodo = $("<li>" + todo.name + "</li>");
-    $('.list').append(newTodo);
+    addTodo(todo);
   });
 }
 
-dark.addEventListener(function(){
-    body.addClass("dark");
-})
+function addTodo(todo){
+  var newTodo = $('<li class="task">' + todo.name + '</li>');
+    if(todo.completed){
+      newTodo.addClass("done");
+    }
+    $('.list').append(newTodo);
+}
+
+function createTodo(){
+  //send request to create new todo
+  var usrInput = $('#todoInput').val();
+  
+  $.post('/api/todos',{name: usrInput} )
+  .then(function(newTodo){
+    $('#todoInput').val('');
+    addTodo(newTodo);
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+} 
