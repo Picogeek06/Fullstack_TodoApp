@@ -1,3 +1,3 @@
-# Single Page Todo App
-This is the API and Single Page App from the Udemy Coursework "The Advanced Web Developement Bootcamp" by Colt Steele & Others.
+# Full Stack Todo App
+This is the Full Stack Todo App from the Udemy Coursework "The Advanced Web Developement Bootcamp" by Colt Steele & Others.
 
