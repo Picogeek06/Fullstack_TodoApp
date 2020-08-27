@@ -1,3 +1,5 @@
+//const { updateTodo } = require("../helpers/todos");
+
 $(document).ready(function () {
   $.getJSON("/api/todos").then(addTodos);
 
@@ -6,7 +8,19 @@ $(document).ready(function () {
       createTodo();
     }
   });
+
+  $('.list').on('click', 'li', function(){
+    updateTodos($(this));
+  });
+
+  $('.list').on('click','span', function(e){
+    //console.log("CLICKED");
+    e.stopPropagation();
+    //$(this).parent().remove;(For removing the <li> from th DOM) 
+    removeTodo($(this).parent());
+  })  
 });
+
 
 
 
@@ -20,7 +34,9 @@ function addTodos(todos) {
 }
 
 function addTodo(todo){
-  var newTodo = $('<li class="task">' + todo.name + '</li>');
+  var newTodo = $('<li class="task">' + todo.name + '<span>X</span></li>');
+  newTodo.data('id', todo._id);
+  newTodo.data('completed', todo.completed);
     if(todo.completed){
       newTodo.addClass("done");
     }
@@ -40,3 +56,33 @@ function createTodo(){
     console.log(err);
   })
 } 
+
+function removeTodo(todo){
+  var clickedId = todo.data('id');
+  var deleteUrl = '/api/todos/' + clickedId;
+  $.ajax({
+    method: 'DELETE',
+    url: deleteUrl
+  })
+  .then(function(data){
+    todo.remove();
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+}
+
+function updateTodos(todo){
+  var updateUrl = '/api/todos/' + todo.data('id');
+  var isDone = !todo.data('completed');
+  var updateData = {completed: isDone} 
+  $.ajax({
+    method: 'PUT',
+    url: updateUrl,
+    data: updateData
+  })
+  .then(function(updatedTodo){
+    todo.toggleClass("done");
+    todo.data('completed', isDone);
+  })
+}
